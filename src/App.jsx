@@ -1,6 +1,7 @@
 import AuthPage from "./pages/AuthPage"
 import HomePage from "./pages/HomePage"
 import VerificationPage from "./pages/VerificationPage"
+import Navbar from "./components/Navbar"
 import { Toaster } from "react-hot-toast"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Routes, Route } from "react-router-dom"
@@ -9,7 +10,8 @@ import { Routes, Route } from "react-router-dom"
 function App() {
 
   return (
-    <div className="min-h screen">
+    <div className="min-h-screen">
+      <Navbar />
       <Routes>
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/home" element={<HomePage />} />
