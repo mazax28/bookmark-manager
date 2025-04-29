@@ -17,7 +17,7 @@ function LoginForm() {
     }
 
     const navigate = useNavigate()
-    const mutation = useMutation({
+    const {mutate, isPending} = useMutation({
         mutationFn:loginUser ,
         onSuccess: (data) => {
           toast.success('¡Inicio de sesión exitoso!');
@@ -33,7 +33,7 @@ function LoginForm() {
     
       const handleSubmit = (e) => {
         e.preventDefault();
-        mutation.mutate(loginData);
+        mutate(loginData);
       };
     
     
@@ -47,7 +47,12 @@ function LoginForm() {
         <label className="label">Password</label>
         <input name='password' value={loginData.password} onChange={handleChange} type="password" className="input" placeholder="Password" />
 
-        <button type='submit' className="btn btn-neutral mt-4">Entrar</button>
+        <button type='submit' className="btn btn-neutral mt-4">
+          {
+            isPending ? (<span className="loading loading-bars loading-xs"></span>
+            ) : 'Iniciar Sesion'
+          }
+        </button>
     </form>
   )
 }
