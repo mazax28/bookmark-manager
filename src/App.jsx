@@ -2,23 +2,32 @@ import AuthPage from "./pages/AuthPage"
 import HomePage from "./pages/HomePage"
 import VerificationPage from "./pages/VerificationPage"
 import Navbar from "./components/Navbar"
+import ProtectedRoute from "./components/ProtectedRoute"
 import { Toaster } from "react-hot-toast"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Routes, Route } from "react-router-dom"
 
-
 function App() {
-
   return (
     <div className="min-h-screen">
       <Navbar />
       <Routes>
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/verify-email" element={<VerificationPage />} />
+        
+        <Route path="/verify-email" element={
+          <ProtectedRoute>
+            <VerificationPage />
+          </ProtectedRoute>
+        } />
 
-        </Routes>
-      <Toaster/>
+        <Route path="/home" element={
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        } />
+        
+      </Routes>
+      <Toaster />
     </div>
   )
 }
