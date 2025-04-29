@@ -1,6 +1,33 @@
-import React from 'react'
-
+import { useMutation } from "@tanstack/react-query"
+import { useAuthStore } from "../store/authStore"
+import { useNavigate } from "react-router-dom"
+import {logoutUser} from "../api/authApi"
 function Navbar() {
+  const {logout} = useAuthStore()
+  const navigate = useNavigate()
+  const {mutate,isPending} = useMutation({
+    mutationFn: () => {
+      // Aquí puedes realizar la acción de cerrar sesión
+      console.log('Cerrar sesión');
+      logoutUser()
+    },
+
+    onSuccess: (data) => {
+      // Aquí puedes manejar la respuesta después de cerrar sesión
+      logout()
+      navigate('/auth')
+
+      console.log('Sesión cerrada:', data);
+    },
+    onError: (error) => {
+      // Aquí puedes manejar el error al cerrar sesión
+      console.error('Error al cerrar sesión:', error);
+    }
+  });
+  const handleLogout = () => {
+    console.log('Cerrar sesión');
+    mutate()
+  }
   return (
 <div className="navbar bg-base-100 shadow-sm">
     <div className="navbar-start">
@@ -60,7 +87,8 @@ function Navbar() {
           </a>
         </li>
         <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li onClick={handleLogout}><a>Logout</a>{isPending ? (<span className="loading loading-ring loading-xs"></span>
+):('') }</li>
       </ul>
     </div>
     </div>
