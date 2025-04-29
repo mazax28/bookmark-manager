@@ -6,10 +6,15 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import { Toaster } from "react-hot-toast"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Routes, Route } from "react-router-dom"
+import BookmarkPage from "./pages/BookmarkPage"
+import { useThemeStore } from "./store/themeStore"
+
 
 function App() {
+  const {theme} = useThemeStore()
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" data-theme={theme}>
       <Navbar />
       <Routes>
         <Route path="/auth" element={<AuthPage />} />
@@ -21,6 +26,7 @@ function App() {
         <Route path="/home" element={
             <HomePage />
         } />
+        <Route path="/bookmarks" element={<BookmarkPage />} />
         
       </Routes>
       <Toaster />
