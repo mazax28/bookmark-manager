@@ -4,15 +4,18 @@ import {toast} from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
 import { verifyEmail } from "../api/authApi"
+import { useAuthStore } from "../store/authStore"
 function VerifyCodeForm() {
     const [code, setCode] = useState({
         token: ''
     })
     const navigate = useNavigate()
-    const mutation = useMutation({
+    const {verifyUser,setError} = useAuthStore()
+    const {mutate,isPending} = useMutation({
         mutationFn: verifyEmail,
         onSuccess: (data) => {
           toast.success('¡Verficacion exitosa!');
+          verifyUser(data.user)
           navigate('/home')
           console.log('Datos del login:', data);
           // Puedes redirigir aquí por ejemplo
@@ -24,7 +27,7 @@ function VerifyCodeForm() {
       });
     const handleSubmit = (e) =>{
         e.preventDefault()
-        mutation.mutate(code)
+        mutate(code)
     }
     const handleChange = (e) =>{
         setCode({
@@ -39,7 +42,16 @@ function VerifyCodeForm() {
             <label className="label">Codigo</label>
             <input name='token' value={code.token} onChange={handleChange} type="text" className="input" />
 
-            <button type='submit' className="btn btn-neutral mt-4">Validar</button>
+            <button type='submit' className="btn btn-neutral mt-4">
+              {
+                isPending ? (<span className="loading loading-bars loading-xs"></span>
+                ) : 'Validar'
+              
+              }
+            </button>
+            <p className="text-center mt-4">
+                ¿No has recibido el correo? <button className="btn btn-link" onClick={() => {}}>Reenviar</button>
+            </p>
     </form>
   )
 }
