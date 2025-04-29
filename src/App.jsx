@@ -15,15 +15,11 @@ function App() {
         <Route path="/auth" element={<AuthPage />} />
         
         <Route path="/verify-email" element={
-          <ProtectedRoute>
             <VerificationPage />
-          </ProtectedRoute>
         } />
 
         <Route path="/home" element={
-          <ProtectedRoute>
             <HomePage />
-          </ProtectedRoute>
         } />
         
       </Routes>
