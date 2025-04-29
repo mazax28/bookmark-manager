@@ -1,3 +1,10 @@
 @import "tailwindcss";
-@plugin "daisyui";
+ @plugin "daisyui" {
+   themes: light --default, dark --prefersdark;
+ }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px; /* Cambia esto al tamaño deseado */
+  background-color: transparent;
+
+}
