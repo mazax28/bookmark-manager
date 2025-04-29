@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useAuthStore } from "../store/authStore"
 import { useNavigate } from "react-router-dom"
 import {logoutUser} from "../api/authApi"
+import ThemeController from "./ThemeController"
 function Navbar() {
   const {logout} = useAuthStore()
   const navigate = useNavigate()
@@ -68,7 +69,8 @@ function Navbar() {
         <li><a>Item 3</a></li>
         </ul>
     </div> */}
-    <div className="navbar-end">
+    <div className="navbar-end space-x-4">
+      <ThemeController />
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
