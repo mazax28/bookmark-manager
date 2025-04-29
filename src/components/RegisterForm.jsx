@@ -5,6 +5,7 @@ import {
 import { toast } from 'react-hot-toast'
 import { registerUser } from '../api/authApi'
 import { useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../store/authStore'
 function RegisterForm() {
     const [registerData, setRegisterData] = useState({
             name: '',
@@ -19,40 +20,56 @@ function RegisterForm() {
             })
         }
         const navigate = useNavigate()
+        const {register,setError} = useAuthStore()
     
         
-        const mutation = useMutation({
+        const {mutate,isPending} = useMutation({
             mutationFn: registerUser,
             onSuccess: (data) => {
               toast.success('¡Registro exitoso!');
+              register(data.user)
               navigate('/verify-email')
               console.log('Datos del login:', data);
               // Puedes redirigir aquí por ejemplo
             },
             onError: (error) => {
               toast.error('Error al Registrarte. Verifica tus datos.');
+            
               console.error('Error:', error);
             }
           });
         
           const handleSubmit = (e) => {
             e.preventDefault();
-            mutation.mutate(registerData);
+            mutate(registerData);
           };
+          console.log('isLoading:', isPending);
+
         
   return (
     <form className="fieldset" onSubmit={handleSubmit}>
-            <legend className="text-2xl text-center">Crear Cuenta</legend>
-            <label className="label">Name</label>
-            <input name='name' value={registerData.name} onChange={handleChange} type="text" className="input" />
+            
 
-            <label className="label">Email</label>
-            <input name='email' value={registerData.email} onChange={handleChange} type="email" className="input"/>
+                <legend className="text-2xl text-center">Crear Cuenta</legend>
+                <label className="label">Name</label>
+                <input name='name' value={registerData.name} onChange={handleChange} type="text" className="input" />
+    
+                <label className="label">Email</label>
+                <input name='email' value={registerData.email} onChange={handleChange} type="email" className="input"/>
+    
+                <label className="label">Password</label>
+                <input name='password' value={registerData.password} onChange={handleChange} type="password" className="input" />
+    
+                <button type='submit' className="btn btn-neutral mt-4">
+                  {isPending ? (
+                    <span className="loading loading-bars loading-xs"></span>
 
-            <label className="label">Password</label>
-            <input name='password' value={registerData.password} onChange={handleChange} type="password" className="input" />
+                  ) : 'Registrarme'}
+                </button>
+              
 
-            <button type='submit' className="btn btn-neutral mt-4">Registrarme</button>
+              
+            
     </form>
    
   )
