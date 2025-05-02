@@ -1,11 +1,10 @@
-import React from 'react'
-import BookmarkHeader from '../components/BookmarkHeader'
-import BookmarkCointainer from '../components/BookmarkCointainer'
+import BookmarkHeader from "../components/BookmarkHeader"
+import BookmarkContainer from "../components/BookmarkContainer"
 function BookmarkPage() {
   return (
     <div>
-        <BookmarkHeader />
-        <BookmarkCointainer />
+        <BookmarkHeader/>
+        <BookmarkContainer/>
       
     </div>
   )
