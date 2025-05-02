@@ -1,4 +1,18 @@
 function BookmarkModal() {
+  const folders = [
+    {
+      id: 'folder-1',
+      name: 'Desarrollo',
+    },
+    {
+      id: 'folder-2',
+      name: 'Diseño',
+    },
+    {
+      id: 'folder-3',
+      name: 'Productividad',
+    }
+  ];
     return (
       <dialog id="my_modal_3" className="modal">
         <div className="modal-box">
@@ -23,12 +37,16 @@ function BookmarkModal() {
             <input id="description" type="text" className="input w-full" placeholder="Descripción breve" />
   
             <label className="label" htmlFor="category">Carpeta</label>
-            <select defaultValue="Pick a color" className="select w-full">
-                <option disabled={true}>Elige una carpeta</option>
-                <option>Crimson</option>
-                <option>Amber</option>
-                <option>Velvet</option>
-            </select>
+            <select defaultValue="" className="select w-full" required>
+  <option value="" disabled>
+    Elige una carpeta
+  </option>
+  {folders.map((folder) => (
+    <option key={folder.id} value={folder.id}>
+      {folder.name}
+    </option>
+  ))}
+</select>
             
   
             <button type="submit" className="btn btn-neutral mt-4">Guardar bookmark</button>
