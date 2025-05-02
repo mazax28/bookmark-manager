@@ -78,9 +78,6 @@ const bookmarkmockData = [
     "title": "GitHub",
     "description": "Plataforma de desarrollo colaborativo.",
     "tags": ["dev", "code", "git"],
-    "metadata": {
-      "image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-    },
     "clickCount": 14,
     "lastClicked": "2025-04-27T10:00:00Z",
     "folder": "desarrollo",
