@@ -6,6 +6,7 @@ function FolderCard({ folder }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleOpen = () => setIsOpen(!isOpen)
+  console.log(folder)
 
   return (
     <div className="card bg-base-200 w-full h-[400px] shadow-sm border border-base-200">
@@ -17,7 +18,7 @@ function FolderCard({ folder }) {
             {folder.name}
           </div>
           <div className="flex items-center gap-2">
-            <span className="badge badge-neutral text-xs">12</span>
+            <span className="badge badge-neutral text-xs">{folder.bookmarkCount}</span>
             <FolderMenuDropdown />
             {/* Botón toggle solo en móviles */}
             <button
@@ -32,7 +33,15 @@ function FolderCard({ folder }) {
 
         {/* Lista de bookmarks */}
         <div className={`transition-all duration-300 ${isOpen ? '' : 'hidden'} md:block`}>
-          <BookmarkList bookmarks={folder.bookmarks} />
+          {
+            folder.bookmarkCount === 0 ? (
+              <div className="text-center text-base-content/70">
+                <p>No hay bookmarks en esta carpeta.</p>
+              </div>
+            ) : (
+                <BookmarkList bookmarks={folder.bookmarks} />
+            )
+          }
         </div>
       </div>
     </div>
