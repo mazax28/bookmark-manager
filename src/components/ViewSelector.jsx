@@ -4,7 +4,7 @@ function ViewSelector() {
   const { view, setView } = useViewStore()
 
   const views = [
-    { icon: 'ri-kanban-view', value: 'list' },
+    { icon: 'ri-table-view', value: 'list' },
     { icon: 'ri-layout-grid-line', value: 'grid' },
   ]
 
