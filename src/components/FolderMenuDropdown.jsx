@@ -8,8 +8,6 @@ function FolderMenuDropdown() {
     <li><a>Editar</a></li>
     <li><a>Eliminar</a></li>
     <li><a>Agregar bookmark</a></li>
-    <li><a>Agregar a favoritos</a></li>
-
 
   </ul>
 </div>
