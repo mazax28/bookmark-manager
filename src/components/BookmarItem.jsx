@@ -9,7 +9,7 @@ function BookmarItem({bookmark}) {
           <h3 className="font-semibold text-sm">{bookmark.title}</h3>
           <i class="ri-external-link-line"></i> {/* Ajustamos el tamaño aquí */}
         </div>
-        <p className="text-xs text-base-content/70">{bookmark.description}</p>
+        <p className="text-xs text-base-content/70">{bookmark?.description}</p>
         <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500">
           {bookmark.url}
         </a>
