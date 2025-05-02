@@ -3,6 +3,7 @@ import { useAuthStore } from "../store/authStore"
 import { useNavigate } from "react-router-dom"
 import {logoutUser} from "../api/authApi"
 import ThemeController from "./ThemeController"
+import {Link} from "react-router-dom"
 function Navbar() {
   const {logout} = useAuthStore()
   const navigate = useNavigate()
@@ -54,21 +55,12 @@ function Navbar() {
         <a className="btn btn-ghost text-xl">BookmarkHub</a>
     </div>
     {/* Comentado por ahora */}
-    {/* <div className="navbar-center hidden lg:flex">
+    <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-        <li><a>Item 1</a></li>
-        <li>
-            <details>
-            <summary>Parent</summary>
-            <ul className="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-            </ul>
-            </details>
-        </li>
-        <li><a>Item 3</a></li>
+        <li><Link to="bookmarks">Bookmarks</Link></li>
+        <li><Link to="folders">Folders</Link></li>
         </ul>
-    </div> */}
+    </div>
     <div className="navbar-end space-x-4">
       <ThemeController />
     <div className="dropdown dropdown-end">
