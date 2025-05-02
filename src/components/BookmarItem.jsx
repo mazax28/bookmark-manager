@@ -1,4 +1,5 @@
 import React from 'react'
+import DeleteModal from './DeleteModal'
 
 function BookmarItem({bookmark}) {
   return (
@@ -19,12 +20,13 @@ function BookmarItem({bookmark}) {
           <i className="ri-file-copy-line"></i>
         </button>
         <button className="btn btn-xs">
-          <i className="ri-pencil-fill"></i>
+        <i class="ri-pencil-line"></i>
         </button>
-        <button className="btn btn-xs">
-          <i className="ri-delete-bin-fill"></i>
+        <button className="btn btn-xs" onClick={()=>document.getElementById('my_modal_5').showModal()}>
+          <i class="ri-delete-bin-7-line"></i>
         </button>
       </div>
+      <DeleteModal/>
     </div>
   )
 }
