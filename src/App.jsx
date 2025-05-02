@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import { Toaster } from "react-hot-toast"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Routes, Route } from "react-router-dom"
+import FolderPage from "./pages/FolderPage"
 import BookmarkPage from "./pages/BookmarkPage"
 import { useThemeStore } from "./store/themeStore"
 
@@ -26,7 +27,10 @@ function App() {
         <Route path="/home" element={
             <HomePage />
         } />
+        <Route path="/folders" element={<FolderPage />} />
         <Route path="/bookmarks" element={<BookmarkPage />} />
+
+        
         
       </Routes>
       <Toaster />
