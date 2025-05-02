@@ -22,16 +22,15 @@ function BookmarkCard({ bookmark }) {
           <BookmarkMenuDropdown/>
         </div>
 
-        {/* Imagen de vista previa */}
-        {bookmark.metadata?.image && (
-          <div className="rounded-lg overflow-hidden">
+        
+        <div className="rounded-lg overflow-hidden">
             <img
-              src={bookmark.metadata.image}
+              src="https://www.notion.so/images/logo-ios.png"
               alt={bookmark.title}
               className="w-full h-40 object-cover"
             />
-          </div>
-        )}
+        </div>
+        
 
         {/* Descripción */}
         {bookmark.description && (
