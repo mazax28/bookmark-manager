@@ -1,4 +1,10 @@
+import React from 'react';
 function BookmarkModal() {
+  const [tags, setTags] = React.useState([]);
+  const [tagInput, setTagInput] = React.useState('');
+  const availableTags = ['javascript', 'react', 'css', 'html', 'mongodb'];
+
+
   const folders = [
     {
       id: 'folder-1',
@@ -38,15 +44,48 @@ function BookmarkModal() {
   
             <label className="label" htmlFor="category">Carpeta</label>
             <select defaultValue="" className="select w-full" required>
-  <option value="" disabled>
-    Elige una carpeta
-  </option>
-  {folders.map((folder) => (
-    <option key={folder.id} value={folder.id}>
-      {folder.name}
-    </option>
+                <option value="" disabled>
+                  Elige una carpeta
+                </option>
+                {folders.map((folder) => (
+                  <option key={folder.id} value={folder.id}>
+                    {folder.name}
+                  </option>
+                ))}
+            </select>
+            <label className="label" htmlFor="tags">Tags</label>
+{/* Selector de tags desde mockdata */}
+<label className="label" htmlFor="tags">Tags</label>
+<div className="flex flex-wrap gap-2">
+  {availableTags.map((tag) => (
+    <button
+      key={tag}
+      type="button"
+      className={`badge cursor-pointer ${
+        tags.includes(tag) ? 'badge-neutral' : 'badge-outline'
+      }`}
+      onClick={() => {
+        if (tags.includes(tag)) {
+          setTags(tags.filter((t) => t !== tag));
+        } else {
+          setTags([...tags, tag]);
+        }
+      }}
+    >
+      {tag}
+    </button>
   ))}
-</select>
+</div>
+
+{/* Mostrar tags seleccionados (opcional, si quieres separarlo) */}
+{tags.length > 0 && (
+  <div className="mt-2 text-sm text-gray-500">
+    Tags seleccionados: {tags.join(', ')}
+  </div>
+)}
+
+
+            
             
   
             <button type="submit" className="btn btn-neutral mt-4">Guardar bookmark</button>
