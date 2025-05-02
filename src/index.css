@@ -8,3 +8,10 @@
   background-color: transparent;
 
 }
+
+.grid-fluid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  gap: 1rem; /* similar a Tailwind's gap-4 */
+
+}
