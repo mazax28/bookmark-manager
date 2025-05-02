@@ -7,7 +7,7 @@ function BookmarkList({bookmarks}) {
       {/* BookmarkItem */}
       {
         bookmarks.map((bookmark) => (
-          <BookmarItem key={bookmark.id} bookmark={bookmark} />
+          <BookmarItem key={bookmark._id} bookmark={bookmark} />
         ))
       }
       {/* Ejemplo de BookmarkItem estático */}
