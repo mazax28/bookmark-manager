@@ -1,37 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
   getSortedRowModel,
   flexRender,
   createColumnHelper,
-} from '@tanstack/react-table'
+} from '@tanstack/react-table';
 
-const mockBookmarks = [
-  {
-    _id: '1',
-    title: 'OpenAI',
-    url: 'https://openai.com',
-    tags: ['AI', 'Research'],
-    description: 'Artificial intelligence research and deployment company.',
-  },
-  {
-    _id: '2',
-    title: 'React',
-    url: 'https://reactjs.org',
-    tags: ['JavaScript', 'Library'],
-    description: 'A JavaScript library for building user interfaces.',
-  },
-  {
-    _id: '3',
-    title: 'MDN Web Docs',
-    url: 'https://developer.mozilla.org',
-    tags: ['Docs', 'HTML', 'CSS', 'JS'],
-    description: 'Resources for developers, by developers.',
-  },
-]
-
-const columnHelper = createColumnHelper()
+const columnHelper = createColumnHelper();
 
 const columns = [
   columnHelper.accessor('title', {
@@ -53,7 +29,7 @@ const columns = [
   }),
   columnHelper.accessor('tags', {
     header: 'Etiquetas',
-    enableSorting: false, // no tiene sentido ordenar tags
+    enableSorting: false,
     cell: info => (
       <div className="flex flex-wrap gap-1">
         {info.getValue().map((tag, idx) => (
@@ -74,13 +50,13 @@ const columns = [
       <p className="text-sm text-base-content/70">{info.getValue()}</p>
     ),
   }),
-]
+];
 
-function BookmarkTable() {
-  const [sorting, setSorting] = useState([])
+function BookmarkTable({ bookmarks }) {
+  const [sorting, setSorting] = useState([]);
 
   const table = useReactTable({
-    data: mockBookmarks,
+    data: bookmarks,
     columns,
     state: {
       sorting,
@@ -88,7 +64,7 @@ function BookmarkTable() {
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-  })
+  });
 
   return (
     <div className="overflow-x-auto p-4">
@@ -102,10 +78,7 @@ function BookmarkTable() {
                   className="cursor-pointer select-none p-3 text-base font-semibold"
                   onClick={header.column.getToggleSortingHandler()}
                 >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+                  {flexRender(header.column.columnDef.header, header.getContext())}
                   {{
                     asc: ' 🔼',
                     desc: ' 🔽',
@@ -128,7 +101,7 @@ function BookmarkTable() {
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
-export default BookmarkTable
+export default BookmarkTable;
