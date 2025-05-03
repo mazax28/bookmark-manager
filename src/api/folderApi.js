@@ -12,6 +12,7 @@ export async function getFolders() {
 }
 export async function getFoldersWithBoomarks() {
   const response = await axios.get(`${API_URL}/bookmarks`);
+  console.log(response.data)
   return response.data;
 }
 
