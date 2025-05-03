@@ -7,9 +7,10 @@ function BookmarkCard({ bookmark }) {
         {/* Header del bookmark */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 font-semibold text-lg">
-            <span className="text-base-content/70">
-              <i className="ri-bookmark-line"></i>
-            </span>
+          <span className={bookmark.isFavorite ? 'text-yellow-400' : 'text-base-content'}>
+            <i className="ri-bookmark-fill"></i>
+          </span>
+
             <a
               href={bookmark.url}
               target="_blank"
