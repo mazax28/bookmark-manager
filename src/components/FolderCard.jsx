@@ -1,9 +1,24 @@
 import React, { useState } from 'react'
 import BookmarkList from './BookmarkList'
+import SubFolderList from './SubFolderList'
 import FolderMenuDropdown from './FolderMenuDropdown'
 
 function FolderCard({ folder }) {
   const [isOpen, setIsOpen] = useState(false)
+  const subfolders= [
+    {
+      _id: 'sub1', 
+      name: 'CSS',
+    },
+    {
+      _id: 'sub2',
+      name: 'JavaScript',
+    },
+    {
+      _id: 'sub3',
+      name: 'Backend',
+    }
+  ]
 
   const toggleOpen = () => setIsOpen(!isOpen)
   console.log(folder)
@@ -39,7 +54,13 @@ function FolderCard({ folder }) {
                 <p>No hay bookmarks en esta carpeta.</p>
               </div>
             ) : (
-                <BookmarkList bookmarks={folder.bookmarks} />
+                <>
+              
+  
+                {/* Lista de bookmarks */}
+
+                <BookmarkList bookmarks={folder.bookmarks} subfolders={subfolders} />
+                </>
             )
           }
         </div>
