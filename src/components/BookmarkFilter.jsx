@@ -6,7 +6,6 @@ function BookmarkFilter() {
         { label: 'Favoritos', value: 'favoritos' },
         { label: 'Recientes', value: 'recientes' },
       ];
-    console.log(selectedFilter)
 
   return (
     <div className="flex items-center gap-2 p-4 rounded-box bg-base-100">
