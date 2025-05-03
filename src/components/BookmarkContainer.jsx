@@ -5,13 +5,16 @@ import BookmarkTable from './BookmarkTable';
 import { useViewStore } from '../store/viewStore';
 import { useQuery } from '@tanstack/react-query';
 import { getBookmarks } from '../api/bookmarkApi';
+import { useFilterStore } from '../store/filterStore';
 
 function BookmarkContainer() {
   const { view } = useViewStore();
+  const { selectedFilter } = useFilterStore();
 
-  const { data: bookmarks, isPending,isError,error } = useQuery({
-    queryKey: ['bookmarks'],
-    queryFn: getBookmarks,
+
+  const { data: bookmarks, isPending, isError, error } = useQuery({
+    queryKey: ['bookmarks', selectedFilter], // cambia el queryKey para que se actualice cuando cambie el filtro
+    queryFn: () => getBookmarks(selectedFilter), // pasa el filtro como argumento
   });
   console.log(bookmarks);
 
