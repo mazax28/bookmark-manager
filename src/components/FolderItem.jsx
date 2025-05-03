@@ -1,9 +1,10 @@
 import React from 'react'
 
-function FolderItem({ folder }) {
+function FolderItem({ folder, onFolderClick }) {
   return (
     <div
       className="bg-base-900 p-3 rounded-box flex justify-between items-center cursor-pointer hover:bg-base-800"
+      onClick={() => onFolderClick(folder)}
     >
       <div className="flex items-center gap-2">
         <i className="ri-folder-line text-lg text-yellow-500" />
