@@ -2,7 +2,7 @@ import React from 'react'
 import FolderContainer from '../components/FolderCointainer'
 import FolderHeader from '../components/FolderHeader'
 import DeleteModal from '../components/DeleteModal'
-function BookmarkPage() {
+function FolderPage() {
   return (
     <div>
         <FolderHeader />
@@ -12,4 +12,4 @@ function BookmarkPage() {
   )
 }
 
-export default BookmarkPage
+export default FolderPage
