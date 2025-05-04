@@ -5,9 +5,14 @@ axios.defaults.withCredentials = true; // Para enviar cookies con las peticiones
 
 const API_URL = 'http://localhost:8000/api/bookmarks'; // O ponerlo en env vars
 
-export async function getBookmarks(filter= 'todos') {
+export async function getBookmarks(filter= 'todos',page=1,limit=10,search='') {
   const response = await axios.get(`${API_URL}/`, {
-    params: { filter },
+    params: { 
+      filter,
+      page,
+      limit,
+      search
+     },
   });
   return response.data;
 }
