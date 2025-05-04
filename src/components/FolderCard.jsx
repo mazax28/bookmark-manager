@@ -6,39 +6,6 @@ function FolderCard({ folder: initialFolder }) {
   const [isOpen, setIsOpen] = useState(false)
   const [currentFolder, setCurrentFolder] = useState(initialFolder)
   const [folderHistory, setFolderHistory] = useState([])
-  
-  // Datos de ejemplo - en un caso real esto vendría de una API o base de datos
-  const subfolders = [
-    {
-      _id: 'sub1', 
-      name: 'CSS',
-      bookmarks: [
-        { _id: 'css1', title: 'CSS Tricks', url: 'https://css-tricks.com', description: 'Trucos de CSS' },
-        { _id: 'css2', title: 'MDN CSS', url: 'https://developer.mozilla.org/es/docs/Web/CSS', description: 'Documentación de CSS' }
-      ],
-      bookmarkCount: 2,
-      subfolders: []
-    },
-    {
-      _id: 'sub2',
-      name: 'JavaScript',
-      bookmarks: [
-        { _id: 'js1', title: 'JavaScript.info', url: 'https://javascript.info', description: 'Tutorial moderno de JS' }
-      ],
-      bookmarkCount: 1,
-      subfolders: [
-        { _id: 'subsub1', name: 'React', bookmarks: [], bookmarkCount: 0 },
-        { _id: 'subsub2', name: 'Vue', bookmarks: [], bookmarkCount: 0 }
-      ]
-    },
-    {
-      _id: 'sub3',
-      name: 'Backend',
-      bookmarks: [],
-      bookmarkCount: 0,
-      subfolders: []
-    }
-  ]
 
   // Actualiza la subcarpeta actual basada en el ID
   const handleFolderClick = (folder) => {
@@ -105,7 +72,7 @@ function FolderCard({ folder: initialFolder }) {
                 {/* Lista de bookmarks y subcarpetas */}
                 <BookmarkList 
                   bookmarks={currentFolder.bookmarks || []} 
-                  subfolders={currentFolder.subfolders || subfolders} 
+                  subfolders={currentFolder.subfolders || []} 
                   onFolderClick={handleFolderClick}
                 />
               </>
