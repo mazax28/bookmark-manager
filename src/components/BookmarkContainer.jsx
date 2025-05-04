@@ -1,5 +1,4 @@
-import React from 'react';
-import { bookmarkmockData } from '../mock/mockData';
+import React, { useEffect } from 'react';
 import BookmarkCard from './BookmarkCard';
 import BookmarkTable from './BookmarkTable';
 import { useViewStore } from '../store/viewStore';
@@ -7,20 +6,30 @@ import { useQuery } from '@tanstack/react-query';
 import { getBookmarks } from '../api/bookmarkApi';
 import { useFilterStore } from '../store/filterStore';
 import useSearchStore from '../store/useSearchStore';
+import PaginationBookmark from './PaginationBookmark';
 
 function BookmarkContainer() {
   const { view } = useViewStore();
   const { selectedFilter } = useFilterStore();
-  const { searchTerm } = useSearchStore();
+  const { searchTerm, currentPage } = useSearchStore();
 
-  const { data: bookmarks, isPending, isError, error } = useQuery({
-    queryKey: ['bookmarks', selectedFilter],
-    queryFn: () => getBookmarks(selectedFilter),
+  // Query con opciones mejoradas para reducir llamadas innecesarias
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ['bookmarks', selectedFilter, searchTerm, currentPage],
+    queryFn: () => getBookmarks(selectedFilter, currentPage, 10, searchTerm),
+    keepPreviousData: true,
+    staleTime: 60000, // Considera los datos "frescos" por 1 minuto
+    refetchOnWindowFocus: false, // No refrescar al volver a la ventana
+    refetchOnMount: false, // No refrescar al montar si los datos no son obsoletos
+    refetchOnReconnect: false, // No refrescar al reconectar
   });
+  
+  // Eliminar el efecto de debounce ya que useSearchStore maneja esto
   
   if (isPending) {
     return <p className="p-4">Cargando bookmarks...</p>;
   }
+  
   if (isError) {
     return (
       <div className="p-4 text-red-500">
@@ -29,20 +38,12 @@ function BookmarkContainer() {
     );
   }
 
-  // Obtener datos de bookmarks
-  const bookmarkData = bookmarks.bookmarks || bookmarkmockData;
+  // Obtener datos de bookmarks de la nueva estructura
+  const bookmarks = data?.data?.bookmarks || [];
+  const pagination = data?.data?.pagination || { totalPages: 1, currentPage: 1, totalItems: 0 };
   
-  // Filtrar los bookmarks según el término de búsqueda
-  const filteredBookmarks = searchTerm
-    ? bookmarkData.filter((bookmark) => 
-        bookmark.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        bookmark.url.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (bookmark.description && bookmark.description.toLowerCase().includes(searchTerm.toLowerCase()))
-      )
-    : bookmarkData;
-
-  // Si no hay resultados después de filtrar
-  if (filteredBookmarks.length === 0 && searchTerm) {
+  // Si no hay resultados después de buscar
+  if (bookmarks.length === 0 && searchTerm) {
     return (
       <div className="p-4 text-center">
         No se encontraron bookmarks con el término: <strong>{searchTerm}</strong>
@@ -50,16 +51,29 @@ function BookmarkContainer() {
     );
   }
 
-  return view === 'grid' ? (
-    <div className="grid-fluid bg-base-100 p-4 rounded-box">
-      {filteredBookmarks.map((bookmark) => (
-        <BookmarkCard key={bookmark._id} bookmark={bookmark} />
-      ))}
-    </div>
-  ) : (
-    <div>
-      <BookmarkTable bookmarks={filteredBookmarks} />
-    </div>
+  return (
+    <>
+      {view === 'grid' ? (
+        <div className="grid-fluid bg-base-100 p-4 rounded-box">
+          {bookmarks.map((bookmark) => (
+            <BookmarkCard key={bookmark._id} bookmark={bookmark} />
+          ))}
+        </div>
+      ) : (
+        <div>
+          <BookmarkTable bookmarks={bookmarks} />
+        </div>
+      )}
+      
+      {pagination.totalPages > 1 && (
+        <div className="flex justify-center my-4">
+          <PaginationBookmark 
+            currentPage={pagination.currentPage} 
+            totalPages={pagination.totalPages} 
+          />
+        </div>
+      )}
+    </>
   );
 }
 
