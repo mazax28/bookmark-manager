@@ -1,6 +1,6 @@
 import AddDropdown from "./AddDropdown"
 import BookmarkFilter from "./BookmarkFilter"
-import BookmarkModal from "./BookmarkModal"
+// import BookmarkModal from "./BookmarkModal"
 import FolderModal from "./FolderModal"
 import ViewSelector from "./ViewSelector"
 import useSearchStore from "../store/useSearchStore"
@@ -29,7 +29,7 @@ function FolderHeader() {
                 </button>
               )}
             </div>
-            <BookmarkModal />
+            {/* <BookmarkModal /> */}
             <FolderModal />
             <AddDropdown />
         </div>
