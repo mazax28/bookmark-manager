@@ -7,10 +7,10 @@ function BookmarItem({bookmark}) {
       <div>
         <div className="flex items-center gap-2">
           <h3 className="font-semibold text-sm">{bookmark.title}</h3>
-          <i class="ri-external-link-line"></i> {/* Ajustamos el tamaño aquí */}
+          <i className="ri-external-link-line"></i> {/* Class name corrected */}
         </div>
         <p className="text-xs text-base-content/70">{bookmark?.description}</p>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500">
+        <a href={bookmark.url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500">
           {bookmark.url}
         </a>
       </div>
@@ -20,10 +20,10 @@ function BookmarItem({bookmark}) {
           <i className="ri-file-copy-line"></i>
         </button>
         <button className="btn btn-xs">
-        <i class="ri-pencil-line"></i>
+          <i className="ri-pencil-line"></i> {/* Class name corrected */}
         </button>
         <button className="btn btn-xs" onClick={()=>document.getElementById('my_modal_5').showModal()}>
-          <i class="ri-delete-bin-7-line"></i>
+          <i className="ri-delete-bin-7-line"></i> {/* Class name corrected */}
         </button>
       </div>
       <DeleteModal/>
