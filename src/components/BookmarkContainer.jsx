@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import BookmarkCard from './BookmarkCard';
 import BookmarkTable from './BookmarkTable';
 import { useViewStore } from '../store/viewStore';
