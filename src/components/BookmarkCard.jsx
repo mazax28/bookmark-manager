@@ -20,7 +20,7 @@ function BookmarkCard({ bookmark }) {
               {bookmark.title || bookmark.url}
             </a>
           </div>
-          <BookmarkMenuDropdown/>
+          <BookmarkMenuDropdown bookmarkId={bookmark._id} />
         </div>
 
         
