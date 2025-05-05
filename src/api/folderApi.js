@@ -15,6 +15,10 @@ export async function getFoldersWithBoomarks() {
   console.log(response.data)
   return response.data;
 }
+export async function getFoldersHierarchy() {
+  const response = await axios.get(`${API_URL}/hierarchy`);
+  return response.data;
+}
 
 export async function addFolder(data) {
   const {name, color} = data;
