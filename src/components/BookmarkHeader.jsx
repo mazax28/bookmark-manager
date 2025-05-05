@@ -1,15 +1,13 @@
 import React, { useCallback } from 'react';
 import AddDropdown from "./AddDropdown";
 import BookmarkFilter from "./BookmarkFilter";
-// import BookmarkModal from "./BookmarkModal";
+import BookmarkModal from "./BookmarkModal";
 import FolderModal from "./FolderModal";
 import ViewSelector from "./ViewSelector";
 import useSearchStore from "../store/useSearchStore";
-import { useQueryClient } from '@tanstack/react-query';
 
 function BookmarkHeader() {
   const { searchTerm, setSearchTerm, clearSearch } = useSearchStore();
-  const queryClient = useQueryClient();
   
   // Usar useCallback para evitar recrear esta función en cada renderizado
   const handleSearchChange = useCallback((e) => {
@@ -43,7 +41,7 @@ function BookmarkHeader() {
             </button>
           )}
         </div>
-        {/* <BookmarkModal /> */}
+        <BookmarkModal />
         <FolderModal />
         <AddDropdown />
       </div>
