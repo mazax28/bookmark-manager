@@ -16,26 +16,32 @@ export async function getBookmarks(filter= 'todos',page=1,limit=10,search='') {
   });
   return response.data;
 }
+export async function getBookmark(id) {
+  const response = await axios.get(`${API_URL}/${id}`);
+  return response.data;
+}
 
 
 export async function addBookmark(data) {
-  const {title,description,url,folder} = data;
+  const {title,description,url,folder,tags} = data;
   const response = await axios.post(`${API_URL}/`,{
     title,
     description,
     url,
-    folder
+    folder,
+    tags
   }
   );
   return response.data;
 }
 export async function updateBookmark(data) {
-    const {id,title,description,url,folder} = data;
+    const {id,title,description,url,folder,tags} = data;
     const response = await axios.put(`${API_URL}/${id}`,{
       title,
       description,
       url,
-      folder
+      folder,
+      tags
     }
     );
     return response.data;
@@ -54,4 +60,3 @@ export async function moveBookmark(data) {
     );
     return response.data;
 }
-
