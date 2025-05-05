@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateBookmark, getBookmarkById } from '../api/bookmarkApi';
+import { updateBookmark } from '../api/bookmarkApi';
 import { getFoldersHierarchy } from '../api/folderApi';
+import { getBookmark } from '../api/bookmarkApi';
 import toast from 'react-hot-toast';
 
 function EditBookmarkModal({ bookmarkId, isOpen, onClose }) {
@@ -17,23 +18,23 @@ function EditBookmarkModal({ bookmarkId, isOpen, onClose }) {
   const [showFolderTree, setShowFolderTree] = useState(false);
   const folderTreeRef = useRef(null);
   const [selectedFolderName, setSelectedFolderName] = useState('');
-  const availableTags = ['javascript', 'react', 'css', 'html', 'mongodb'];
+  const availableTags = ['javascript', 'react', 'css', 'html', 'mongodb', 'node', 'backend'];
   
   const queryClient = useQueryClient();
 
   // Fetch the specific bookmark data
-  const { data: bookmarkDetails, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['bookmark', bookmarkId],
-    queryFn: () => getBookmarkById(bookmarkId),
+    queryFn: () => getBookmark(bookmarkId),
     enabled: isOpen && !!bookmarkId, // Only fetch when modal is open and ID exists
   });
 
   // Update form data when bookmark details are fetched
   useEffect(() => {
-    if (bookmarkDetails) {
-      const bookmark = bookmarkDetails.data;
+    if (data && data.bookmark) {
+      const bookmark = data.bookmark;
       setBookmarkData({
-        id: bookmarkId,
+        id: bookmark._id, // Use _id from the response
         url: bookmark.url || '',
         title: bookmark.title || '',
         description: bookmark.description || '',
@@ -41,12 +42,27 @@ function EditBookmarkModal({ bookmarkId, isOpen, onClose }) {
         tags: bookmark.tags || []
       });
       
-      // Set selected folder name if available
-      if (bookmark.folderName) {
-        setSelectedFolderName(bookmark.folderName);
+      // Get folder name from cache if available
+      const foldersData = queryClient.getQueryData(['foldersHierarchy']);
+      if (foldersData && bookmark.folder) {
+        // Find folder by ID to get its name
+        const findFolder = (folders, id) => {
+          for (const folder of folders || []) {
+            if (folder._id === id) return folder;
+            
+            const found = findFolder(folder.subfolders, id);
+            if (found) return found;
+          }
+          return null;
+        };
+        
+        const folderObj = findFolder(foldersData, bookmark.folder);
+        if (folderObj) {
+          setSelectedFolderName(folderObj.name);
+        }
       }
     }
-  }, [bookmarkDetails, bookmarkId]);
+  }, [data, bookmarkId, queryClient]);
 
   // Get folders hierarchy for the folder selector
   const { data: folders, isPending: foldersLoading } = useQuery({
@@ -124,6 +140,17 @@ function EditBookmarkModal({ bookmarkId, isOpen, onClose }) {
   };
 
   if (!isOpen) return null;
+
+  // Display loading state while fetching
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50">
+        <div className="bg-base-100 p-6 rounded-lg shadow-lg">
+          <span className="loading loading-spinner loading-lg"></span>
+        </div>
+      </div>
+    );
+  }
 
   // Recursive component for folder tree
   const FolderTreeItem = ({ folder, depth = 0 }) => {
