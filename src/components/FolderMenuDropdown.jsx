@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import DeleteFolderModal from './DeleteFolderModal'
 import EditFolderModal from './EditFolderModal'
+import AddSubfolderModal from './AddSubfolderModal'
+import AddBookmarkToFolderModal from './AddBookmarkToFolderModal'
 
 function FolderMenuDropdown({ folderId }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isAddSubfolderModalOpen, setIsAddSubfolderModalOpen] = useState(false);
+  const [isAddBookmarkModalOpen, setIsAddBookmarkModalOpen] = useState(false);
 
   const handleEditClick = (e) => {
     document.activeElement.blur(); // Forzar cierre del dropdown
@@ -15,12 +19,15 @@ function FolderMenuDropdown({ folderId }) {
     document.activeElement.blur(); // Forzar cierre del dropdown
     setIsDeleteModalOpen(true);
   };
+  
+  const handleAddSubfolderClick = (e) => {
+    document.activeElement.blur(); // Forzar cierre del dropdown
+    setIsAddSubfolderModalOpen(true);
+  };
 
   const handleAddBookmarkClick = (e) => {
     document.activeElement.blur(); // Forzar cierre del dropdown
-    // Open bookmark modal and preselect this folder
-    document.getElementById('my_modal_3').showModal();
-    // Ideal: pass folder ID to BookmarkModal to preselect it
+    setIsAddBookmarkModalOpen(true);
   };
 
   return (
@@ -30,6 +37,7 @@ function FolderMenuDropdown({ folderId }) {
         <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
           <li><a onClick={handleEditClick}>Editar</a></li>
           <li><a onClick={handleDeleteClick}>Eliminar</a></li>
+          <li><a onClick={handleAddSubfolderClick}>Agregar subcarpeta</a></li>
           <li><a onClick={handleAddBookmarkClick}>Agregar bookmark</a></li>
         </ul>
       </div>
@@ -47,6 +55,22 @@ function FolderMenuDropdown({ folderId }) {
           folderId={folderId}
           isOpen={isEditModalOpen}
           onClose={() => setIsEditModalOpen(false)}
+        />
+      )}
+      
+      {isAddSubfolderModalOpen && (
+        <AddSubfolderModal
+          parentFolderId={folderId}
+          isOpen={isAddSubfolderModalOpen}
+          onClose={() => setIsAddSubfolderModalOpen(false)}
+        />
+      )}
+      
+      {isAddBookmarkModalOpen && (
+        <AddBookmarkToFolderModal
+          folderId={folderId}
+          isOpen={isAddBookmarkModalOpen}
+          onClose={() => setIsAddBookmarkModalOpen(false)}
         />
       )}
     </>
