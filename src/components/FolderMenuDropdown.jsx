@@ -1,6 +1,6 @@
 import React from 'react'
 
-function FolderMenuDropdown() {
+function FolderMenuDropdown({folderId}) {
   return (
 <div className="dropdown dropdown-end">
   <div tabIndex={0} role="button" className="btn m-1">⋮</div>
