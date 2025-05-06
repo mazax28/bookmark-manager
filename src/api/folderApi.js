@@ -26,10 +26,11 @@ export async function getFoldersHierarchy() {
 }
 
 export async function addFolder(data) {
-  const {name, color} = data;
+  const {name, color, parentFolder} = data;
   const response = await axios.post(`${API_URL}/`, {
     name,
-    color
+    color,
+    parentFolder
   }
   );
   return response.data;
@@ -46,6 +47,6 @@ export async function updateFolder(data) {
 
 export async function deleteFolder(data) {
     const {id} = data;
-    const response = await axios.put(`${API_URL}/${id}`);
+    const response = await axios.delete(`${API_URL}/${id}`);
     return response.data;
 }
