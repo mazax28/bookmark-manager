@@ -45,7 +45,6 @@ function EditFolderModal({ folderId, isOpen, onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateFolderMutation.mutate({
-      id: folderId,
       name: folderData.name,
       color: folderData.color
     });
