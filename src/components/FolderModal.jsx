@@ -30,7 +30,8 @@ function FolderModal() {
     e.preventDefault();
     mutate({
       name: newFolder.folderName,
-      color: newFolder.folderColor
+      color: newFolder.folderColor,
+      folderParent: null // No parent folder for top-level folders
     });
   }
 
