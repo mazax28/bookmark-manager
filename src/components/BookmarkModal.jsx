@@ -102,6 +102,7 @@ function BookmarkModal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('Submitting bookmark:', bookmarkData);
     mutate(bookmarkData);
   };
 
