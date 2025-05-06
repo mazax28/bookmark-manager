@@ -48,7 +48,7 @@ function FolderCard({ folder: initialFolder }) {
           </div>
           <div className="flex items-center gap-2">
             <span className="badge badge-neutral text-xs">{currentFolder.bookmarkCount}</span>
-            <FolderMenuDropdown />
+            <FolderMenuDropdown folderId={currentFolder._id}  />
             {/* Botón toggle solo en móviles */}
             <button
               className="md:hidden text-xl text-base-content"
