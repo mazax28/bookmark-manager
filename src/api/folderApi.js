@@ -10,6 +10,11 @@ export async function getFolders() {
   const response = await axios.get(`${API_URL}/`);
   return response.data;
 }
+
+export async function getFolder(id) {
+  const response = await axios.get(`${API_URL}/${id}`);
+  return response.data;
+}
 export async function getFoldersWithBoomarks() {
   const response = await axios.get(`${API_URL}/bookmarks`);
   console.log(response.data)
