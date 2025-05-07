@@ -45,7 +45,13 @@ export async function updateBookmark(data) {
     }
     );
     return response.data;
-  }
+}
+
+export async function updateFavorite(data) {
+    const {id} = data;
+    const response = await axios.patch(`${API_URL}/${id}/favorite`);
+    return response.data;
+}
 
 export async function deleteBookmark(data) {
     const {id} = data;
@@ -59,4 +65,12 @@ export async function moveBookmark(data) {
     }
     );
     return response.data;
+}
+export async function deleteMultipleBookmarks(data) {
+
+  const {ids} = data;
+  const response = await axios.post(`${API_URL}/delete-multiple`,{
+    ids
+  });
+  return response.data;
 }
