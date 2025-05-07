@@ -22,7 +22,7 @@ export async function getFoldersWithBoomarks() {
 }
 export async function getFoldersHierarchy() {
   const response = await axios.get(`${API_URL}/hierarchy`);
-  return response.data;
+  return response.data.folders;
 }
 
 export async function addFolder(data) {
