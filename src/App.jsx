@@ -9,6 +9,7 @@ import { Routes, Route } from "react-router-dom"
 import FolderPage from "./pages/FolderPage"
 import BookmarkPage from "./pages/BookmarkPage"
 import { useThemeStore } from "./store/themeStore"
+import DasboardPage from "./pages/DashboardPage"
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         } />
         <Route path="/folders" element={<FolderPage />} />
         <Route path="/bookmarks" element={<BookmarkPage />} />
+        <Route path="/dashboard" element={<DasboardPage />} />
 
         
         
