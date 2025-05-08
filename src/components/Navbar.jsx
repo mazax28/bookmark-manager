@@ -59,6 +59,7 @@ function Navbar() {
         <ul className="menu menu-horizontal px-1">
         <li><Link to="bookmarks">Bookmarks</Link></li>
         <li><Link to="folders">Folders</Link></li>
+        <li><Link to="dashboard">Dashboard</Link></li>
         </ul>
     </div>
     <div className="navbar-end space-x-4">
