@@ -12,7 +12,16 @@ const columnHelper = createColumnHelper();
 const columns = [
   columnHelper.accessor('title', {
     header: 'Título',
-    cell: info => <strong>{info.getValue()}</strong>,
+    cell: info => (
+      <a
+        href={info.row.original.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-500 hover:underline"
+      >
+        <strong>{info.getValue()}</strong>
+      </a>
+    ),
   }),
   columnHelper.accessor('url', {
     header: 'URL',
@@ -26,6 +35,10 @@ const columns = [
         {info.getValue()}
       </a>
     ),
+    // Esta meta-propiedad será usada para aplicar clases CSS condicionales
+    meta: {
+      className: "hidden md:table-cell"
+    }
   }),
   columnHelper.accessor('tags', {
     header: 'Etiquetas',
@@ -68,14 +81,14 @@ function BookmarkTable({ bookmarks }) {
 
   return (
     <div className="overflow-x-auto p-4">
-      <table className="table w-full border border-base-300 rounded-box">
+      <table className="table table-xs w-full border border-base-300 rounded-box md:table-md">
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id} className="bg-base-200">
               {headerGroup.headers.map(header => (
                 <th
                   key={header.id}
-                  className="cursor-pointer select-none p-3 text-base font-semibold"
+                  className={`cursor-pointer select-none p-3 text-base font-semibold ${header.column.columnDef.meta?.className || ''}`}
                   onClick={header.column.getToggleSortingHandler()}
                 >
                   {flexRender(header.column.columnDef.header, header.getContext())}
@@ -92,7 +105,10 @@ function BookmarkTable({ bookmarks }) {
           {table.getRowModel().rows.map(row => (
             <tr key={row.id} className="hover">
               {row.getVisibleCells().map(cell => (
-                <td key={cell.id} className="p-3 align-top">
+                <td 
+                  key={cell.id} 
+                  className={`p-3 align-top ${cell.column.columnDef.meta?.className || ''}`}
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
