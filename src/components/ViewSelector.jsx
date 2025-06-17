@@ -9,7 +9,7 @@ function ViewSelector() {
   ]
 
   return (
-    <div className="flex items-center gap-2 p-4 rounded-box bg-base-100">
+    <div className="flex items-center gap-2 p-1 rounded-box bg-base-100 sm:p-2 md:p-4">
       {views.map(({ icon, value }) => (
         <p
           key={value}
