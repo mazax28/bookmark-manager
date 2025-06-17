@@ -1,9 +1,16 @@
 import React from 'react'
+import Hero from '../components/Hero'
+import Features from '../components/Features'
+import Testimonials from '../components/Testimonials'
+import CTA from '../components/CTA'
 
 function HomePage() {
   return (
-    <div>
-        <h1 className='text-3xl text-center'>Bienvenido a la página de inicio</h1>
+    <div className='min-h-screen bg-white dark:bg-gray-950'>
+      <Hero />
+      <Features/>
+      <Testimonials/>
+      <CTA/>
     </div>
   )
 }
