@@ -25,7 +25,7 @@ function App() {
             <VerificationPage />
         } />
 
-        <Route path="/home" element={
+        <Route path="/" element={
             <HomePage />
         } />
         <Route path="/folders" element={<FolderPage />} />
