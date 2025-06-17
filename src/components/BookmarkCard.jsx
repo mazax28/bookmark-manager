@@ -29,7 +29,7 @@ function BookmarkCard({ bookmark }) {
   }
 
   return (
-    <div className={`card bg-base-200 w-96 shadow-sm border ${selected ? 'border-primary bg-base-300' : 'border-base-200'}`}>
+    <div className={`card bg-base-300 w-96 shadow-sm border ${selected ? 'border-primary bg-base-300' : 'border-base-200'}`}>
       <div className="card-body space-y-2">
         {/* Header del bookmark */}
         <div className="flex items-center justify-between">
