@@ -27,7 +27,11 @@ function BookmarkContainer() {
   // Eliminar el efecto de debounce ya que useSearchStore maneja esto
   
   if (isPending) {
-    return <p className="p-4">Cargando bookmarks...</p>;
+    return (
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <span className="loading loading-spinner loading-xl"></span>
+      </div>
+    );
   }
   
   if (isError) {
@@ -54,7 +58,8 @@ function BookmarkContainer() {
   return (
     <>
       {view === 'grid' ? (
-        <div className="grid-fluid bg-base-100 p-4 rounded-box">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 bg-base-100 p-4 rounded-box mx-auto max-w-7xl justify-items-center">
+
           {bookmarks.map((bookmark) => (
             <BookmarkCard key={bookmark._id} bookmark={bookmark} />
           ))}
