@@ -14,8 +14,12 @@ function FolderContainer() {
   
   console.log("Folders data:", data);
   
-  if (isPending) {
-    return <p className="p-4">Cargando carpetas...</p>;
+   if (isPending) {
+    return (
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <span className="loading loading-spinner loading-xl"></span>
+      </div>
+    );
   }
   
   if (isError) {
