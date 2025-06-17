@@ -5,7 +5,7 @@ function ThemeController() {
     const { theme, setTheme } = useThemeStore()
 
     const handleToggle = (e) => {
-      const newTheme = e.target.checked ? 'light' : 'dark'
+      const newTheme = e.target.checked ? 'lofi' : 'dark'
       setTheme(newTheme)
     }
   
@@ -20,7 +20,7 @@ function ThemeController() {
           type="checkbox"
           className="toggle theme-controller"
           onChange={handleToggle}
-          checked={theme === 'light'}
+          checked={theme === 'lofi'}
         />
   
         {/* Light icon */}
