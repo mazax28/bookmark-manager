@@ -14,7 +14,7 @@ function BookmarkFilter() {
                 <p 
                     key={value}
                     onClick={() => setFilter(value)}
-                    className={`p-2 rounded-box cursor-pointer ${selectedFilter === value ? 'bg-primary' : ''}`}
+                    className={`p-2 rounded-box cursor-pointer ${selectedFilter === value ? 'bg-primary text-primary-content' : 'hover:bg-base-200'}`}
                 >
                     {label}   
                 </p>
