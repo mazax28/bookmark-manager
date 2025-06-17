@@ -3,7 +3,7 @@ import BookmarkList from './BookmarkList'
 import FolderMenuDropdown from './FolderMenuDropdown'
 
 function FolderCard({ folder: initialFolder }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const [currentFolder, setCurrentFolder] = useState(initialFolder)
   const [folderHistory, setFolderHistory] = useState([])
 
@@ -30,7 +30,7 @@ function FolderCard({ folder: initialFolder }) {
   const toggleOpen = () => setIsOpen(!isOpen)
 
   return (
-    <div className="card bg-base-200 w-full h-[400px] shadow-sm border border-base-200">
+    <div className={`card bg-base-200 w-full ${isOpen ? 'h-[400px]' : 'h-[100px]'} shadow-sm border border-base-200 transition-all duration-300`}>
       <div className="card-body space-y-2">
         {/* Header de la carpeta */}
         <div className="flex items-center justify-between">
