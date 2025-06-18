@@ -3,11 +3,15 @@ import {toast} from 'react-hot-toast'
 import { useMutation } from '@tanstack/react-query'
 import {loginUser} from '../api/authApi'
 import {useNavigate} from 'react-router-dom'
+import { useAuthStore } from '../store/authStore'
+
 function LoginForm() {
     const [loginData, setLoginData] = useState({
         email: '',
         password: ''
     })
+    const { login } = useAuthStore(); // Añadimos esto
+    
     const handleChange = (e) => {
         const { name, value } = e.target
         setLoginData({
@@ -18,12 +22,12 @@ function LoginForm() {
 
     const navigate = useNavigate()
     const {mutate, isPending} = useMutation({
-        mutationFn:loginUser ,
+        mutationFn: loginUser,
         onSuccess: (data) => {
           toast.success('¡Inicio de sesión exitoso!');
-          console.log('Datos del login:', data);
-          navigate('/home'); // Redirigir a la página de inicio después de iniciar sesión
-          // Puedes redirigir aquí por ejemplo
+          login(data.user); // Añadimos esto para actualizar el store
+          
+          navigate('/bookmarks'); // Redirige a la página de bookmarks          
         },
         onError: (error) => {
           toast.error('Error al iniciar sesión. Verifica tus datos.');
