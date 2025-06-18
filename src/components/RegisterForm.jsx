@@ -1,26 +1,37 @@
 import { useState } from 'react'
-import {
-    useMutation
-  } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
 import { registerUser } from '../api/authApi'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 function RegisterForm() {
     const [registerData, setRegisterData] = useState({
-            name: '',
-            email: '',
-            password: ''
+        name: '',
+        email: '',
+        password: ''
+    })
+    // Estado para errores de validación
+    const [validationErrors, setValidationErrors] = useState({
+        name: '',
+        email: '',
+        password: ''
+    })
+    
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setRegisterData({
+            ...registerData,
+            [name]: value
         })
-        const handleChange = (e) => {
-            const { name, value } = e.target
-            setRegisterData({
-                ...registerData,
-                [name]: value
-            })
-        }
-        const navigate = useNavigate()
-        const {register,setError} = useAuthStore()
+        // Limpiar errores al editar
+        setValidationErrors({
+            ...validationErrors,
+            [name]: ''
+        })
+    }
+    
+    const navigate = useNavigate()
+    const { register } = useAuthStore()
     
         
         const {mutate,isPending} = useMutation({
@@ -28,8 +39,7 @@ function RegisterForm() {
             onSuccess: (data) => {
               toast.success('¡Registro exitoso!');
               register(data.user)
-              navigate('/verify-email')
-              console.log('Datos del login:', data);
+              navigate('/bookmarks')
               // Puedes redirigir aquí por ejemplo
             },
             onError: (error) => {
