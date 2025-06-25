@@ -42,7 +42,7 @@ function LoginForm() {
     
     
   return (
-    <form className="fieldset " onSubmit={handleSubmit}>
+    <form className="fieldset  " onSubmit={handleSubmit}>
         <legend className="text-2xl text-center">Iniciar Sesion</legend>
 
         <label  className="label">Email</label>
