@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { addFolder } from '../api/folderApi';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation,useQueryClient } from '@tanstack/react-query';
 
 function FolderModal() {
 
@@ -10,6 +10,8 @@ function FolderModal() {
     folderName: '',
     folderColor: ''
   });
+  const queryClient = useQueryClient();
+
 
   const {mutate, isPending} = useMutation({
     mutationFn: addFolder,
@@ -20,6 +22,7 @@ function FolderModal() {
         folderName: '',
         folderColor: ''
       });
+      queryClient.invalidateQueries({ queryKey: ['foldersHierarchy'] });
     },
     onError: (error) => {
       toast.error(`Error al crear la carpeta: ${error.message}`);
