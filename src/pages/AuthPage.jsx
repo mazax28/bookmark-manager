@@ -7,7 +7,7 @@ function AuthPage() {
     const [isLogin, setIsLogin] = useState(true);
 
     return (
-        <div className="mx-auto w-xs bg-base-200 border-base-300 rounded-box border p-4"> 
+        <div className="mx-auto w-xs bg-base-200 border-base-300 rounded-box border p-4 mt-20"> 
             {
                 isLogin
                 ?
@@ -21,7 +21,7 @@ function AuthPage() {
 
                     )
             }
-         <button className='cursor-pointer'
+         <button className='cursor-pointer mt-2'
             onClick={(e) => {
             e.preventDefault(); // ⬅️ Evita que el form haga submit
             setIsLogin(!isLogin);
