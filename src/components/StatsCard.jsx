@@ -34,7 +34,7 @@ const statsConfig = [
     return (
       <div className="grid grid-cols-1 place-items-center md:grid-cols-2 gap-4">
         {statsConfig.map((item) => (
-          <div key={item.key} className="card bg-base-300 w-96">
+          <div key={item.key} className="card border border-base-800 w-96">
             <div className="card-body">
               <div className="flex justify-between">
                 <h2 className="card-title">{item.title}</h2>
