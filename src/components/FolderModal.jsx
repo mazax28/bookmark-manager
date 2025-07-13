@@ -23,6 +23,7 @@ function FolderModal() {
         folderColor: ''
       });
       queryClient.invalidateQueries({ queryKey: ['foldersHierarchy'] });
+      queryClient.invalidateQueries({ queryKey: ['foldersWithBookmarks'] });
     },
     onError: (error) => {
       toast.error(`Error al crear la carpeta: ${error.message}`);
