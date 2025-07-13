@@ -23,22 +23,29 @@ const columns = [
       </a>
     ),
   }),
-  columnHelper.accessor('url', {
-    header: 'URL',
+  // columnHelper.accessor('url', {
+  //   header: 'URL',
+  //   cell: info => (
+  //     <a
+  //       href={info.getValue()}
+  //       target="_blank"
+  //       rel="noopener noreferrer"
+  //       className="text-blue-500 hover:underline"
+  //     >
+  //       {info.getValue()}
+  //     </a>
+  //   ),
+  //   // Esta meta-propiedad será usada para aplicar clases CSS condicionales
+  //   meta: {
+  //     className: "hidden md:table-cell"
+  //   }
+  // }),
+  columnHelper.accessor('description', {
+    header: 'Descripción',
+    enableSorting: false,
     cell: info => (
-      <a
-        href={info.getValue()}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-blue-500 hover:underline"
-      >
-        {info.getValue()}
-      </a>
+      <p className="text-sm text-base-content/70">{info.getValue()}</p>
     ),
-    // Esta meta-propiedad será usada para aplicar clases CSS condicionales
-    meta: {
-      className: "hidden md:table-cell"
-    }
   }),
   columnHelper.accessor('tags', {
     header: 'Etiquetas',
@@ -54,13 +61,6 @@ const columns = [
           </span>
         ))}
       </div>
-    ),
-  }),
-  columnHelper.accessor('description', {
-    header: 'Descripción',
-    enableSorting: false,
-    cell: info => (
-      <p className="text-sm text-base-content/70">{info.getValue()}</p>
     ),
   }),
 ];
