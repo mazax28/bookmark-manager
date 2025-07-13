@@ -4,6 +4,7 @@ import EditBookmarkModal from './EditBookmarkModal'
 import MoveBookmarkModal from './MoveBookmarkModal'
 import DeleteBookmarkModal from './DeleteBookmarkModal'
 import { useState } from 'react'
+import { toast } from 'react-hot-toast'
 
 
 function BookmarItem({bookmark}) {
@@ -11,6 +12,28 @@ function BookmarItem({bookmark}) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isMoveModalOpen, setIsMoveModalOpen] = useState(false);
   const bookmarkId = bookmark._id;
+
+  const handleCopyUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(bookmark.url)
+      toast.success('URL copiada al portapapeles')
+    } catch (err) {
+      // Fallback para navegadores que no soportan clipboard API
+      const textArea = document.createElement('textarea')
+      textArea.value = bookmark.url
+      document.body.appendChild(textArea)
+      textArea.select()
+  
+      try {
+        document.execCommand('copy')
+      } catch (fallbackErr) {
+        console.error('Error al copiar URL:', fallbackErr)
+      }
+      document.body.removeChild(textArea)
+    
+    }
+  }
+
   const handleEditClick = (e) => {
     // Close dropdown and open edit modal
     document.activeElement.blur(); // Forzar cierre del dropdown
@@ -23,20 +46,20 @@ function BookmarItem({bookmark}) {
 
   return (
     <>
-      <div className="bg-base-900 p-3 rounded-box flex justify-between items-center">
+      <div className="p-3 rounded-box flex justify-between items-center border border-base-600">
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-sm">{bookmark.title}</h3>
-            <i className="ri-external-link-line"></i> {/* Class name corrected */}
+            <a href={bookmark.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <h3 className="font-semibold text-sm">{bookmark.title}</h3>
+              <i className="ri-external-link-line"></i> {/* Class name corrected */}
+            </a>
           </div>
           <p className="text-xs text-base-content/70">{bookmark?.description}</p>
-          <a href={bookmark.url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500">
-            {bookmark.url}
-          </a>
+          
         </div>
 
         <div className="flex items-end gap-1 text-xs">
-          <button className="btn btn-xs">
+          <button onClick={handleCopyUrl} className="btn btn-xs">
             <i className="ri-file-copy-line"></i>
           </button>
           <button onClick={handleEditClick} className="btn btn-xs">
