@@ -57,7 +57,7 @@ function TopBookmarksTable() {
       header: 'Carpeta',
       accessorKey: 'folder',
       cell: info => (
-        <span className="px-2 py-1 rounded-md text-xs font-medium bg-blue-100 text-blue-800">
+        <span className="px-2 py-1 rounded-md text-xs font-medium border border-base-800">
           {info.getValue()}
         </span>
       )
