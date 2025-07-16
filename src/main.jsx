@@ -11,9 +11,12 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchOnReconnect: false,
-      refetchInterval: false, // Esto es clave - desactiva refetch automático
-      staleTime: 5 * 60 * 1000, // 5 minutos
+      refetchInterval: false, // Desactiva refetch automático por tiempo
+      refetchIntervalInBackground: false, // Desactiva refetch en background
+      staleTime: 10 * 60 * 1000, // 10 minutos - datos considerados frescos
+      cacheTime: 15 * 60 * 1000, // 15 minutos - tiempo en cache
       retry: 1,
+      retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
     },
   },
 });
