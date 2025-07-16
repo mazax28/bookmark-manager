@@ -10,9 +10,13 @@ function FolderContainer() {
   const { data, isPending, isError, error } = useQuery({
     queryKey: ['foldersWithBookmarks'],
     queryFn: getFoldersWithBoomarks,
+    keepPreviousData: true,
+    staleTime: 60000, // Considera los datos "frescos" por 1 minuto
+    refetchOnWindowFocus: false, // No refrescar al volver a la ventana
+    refetchOnMount: false, // No refrescar al montar si los datos no son obsoletos
+    refetchOnReconnect: false, // No refrescar al reconectar
   });
   
-  console.log("Folders data:", data);
   
    if (isPending) {
     return (
