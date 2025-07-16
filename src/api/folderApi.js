@@ -17,7 +17,6 @@ export async function getFolder(id) {
 }
 export async function getFoldersWithBoomarks() {
   const response = await axios.get(`${API_URL}/folders/bookmarks`);
-  console.log(response.data)
   return response.data;
 }
 export async function getFoldersHierarchy() {

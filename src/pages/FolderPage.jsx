@@ -1,5 +1,5 @@
 import React from 'react'
-import FolderContainer from '../components/FolderCointainer'
+import FolderContainer from '../components/FolderContainer'
 import FolderHeader from '../components/FolderHeader'
 import DeleteModal from '../components/DeleteModal'
 function FolderPage() {
